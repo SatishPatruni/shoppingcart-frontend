@@ -1,0 +1,51 @@
+<div class="container">
+  <p-toast key="successKey" [style]="{marginTop: '40px'}" position="top-center"></p-toast>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <br><br>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Login</h4>
+        </div>
+      </div>
+      <div class="col-12">
+        <p>Please enter your login information below.</p>
+      </div>
+      <br>
+      <div class="col-12">
+        <span>Required&nbsp;*</span>
+      </div><br>
+      <form [formGroup]="signIn">
+        <div class="col-12">
+          <div class="form-group">
+            <span style=" text-align: left">
+              <h6>Email&nbsp;*</h6>
+            </span>
+            <input type="text" placeholder="Email" pInputText [formControl]="emailControl" formControlName="email"
+              required />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <span style=" text-align: left">
+              <h6>Password&nbsp;*</h6>
+            </span>
+            <input type="password" placeholder="Password" pInputText [formControl]="passwordControl"
+              formControlName="password" required />
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-6">
+            <button type="button" class="btn btn-primary" (click)="login()" [disabled]="isFormInvalid()">Log In</button>
+          </div>
+          <div class="col-6 text-right">
+            <!-- <span>Forgot Password?</span> -->
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Hello {{user.first_name}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Your cart details below:</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-4">
+          Name
+        </div>
+        <div class="col-4">
+          Count
+        </div>
+        <div class="col-4">
+          Total Price
+        </div>
+      </div>
+    </div>
+    <div class="col-12" style="border: 1px;" *ngFor="let product of cartProductInfoList">
+      <div class="row">
+        <div class="col-4">
+          {{product.name}}
+        </div>
+        <div class="col-4">
+          {{product.count}}
+        </div>
+        <div class="col-4">
+          {{product.price}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+Order Price: {{orderPrice}}
+<br>
+<button type="button" class="btn btn-primary" (click)="placeOrder()">
+  Place Order
+</button>
