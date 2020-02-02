@@ -3,6 +3,7 @@ import { ProductService } from '../../services/product/product.service';
 import { Product, User } from '../../models/data-models';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +18,10 @@ export class ProductListComponent implements OnInit {
   orderId: number;
   user: User;
 
-  constructor(private productService: ProductService, private cookieService: CookieService, private router: Router) {
+  constructor(private productService: ProductService, 
+    private cookieService: CookieService, 
+    private router: Router, 
+    private messageService: MessageService) {
     this.orderId = +this.cookieService.get('orderId');
     this.user = JSON.parse(this.cookieService.get('user'));
   }
@@ -26,7 +30,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProductList().subscribe(productRespone => {
       this.products = productRespone.products;
       this.productCount = productRespone.total;
-    })
+    });
   }
 
   addProductToCart(productId) {
@@ -42,6 +46,12 @@ export class ProductListComponent implements OnInit {
         this.cookieService.set('orderId', JSON.stringify(orderResponse.order.order_id));
       });
     }
+    this.messageService.add({
+      key: 'successKey',
+      severity: 'success',
+      summary: 'Order place Successfully',
+      detail: ''
+    });
   }
 
   moveToCart() {

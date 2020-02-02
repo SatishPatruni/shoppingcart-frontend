@@ -16,8 +16,6 @@ export class IsLoggedInGuard {
             this.user = JSON.parse(
                 this.cookieService.get(environment.cookieUser));
             this.router.navigate(['home']);
-        } else {
-            this.router.navigate(['signin']);
         }
     }
 

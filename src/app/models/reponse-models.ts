@@ -5,6 +5,7 @@ export class BaseResponse {
 }
 export class LoginResponse extends BaseResponse {
     user: User;
+    token: string;
 }
 export class ProductResponse extends BaseResponse {
     total: number;

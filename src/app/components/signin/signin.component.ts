@@ -5,6 +5,7 @@ import { UserService } from '../../services/user/user.service';
 import { MessageService } from 'primeng/api';
 import { User } from '../../models/data-models';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-signin',
@@ -47,7 +48,8 @@ export class SigninComponent implements OnInit {
         this.loginResponse = data;
         console.log(data);
         if (this.loginResponse.user) {
-          this.cookieService.set('user', JSON.stringify(this.loginResponse.user));
+          this.cookieService.set(environment.cookieUser, JSON.stringify(this.loginResponse.user));
+          this.cookieService.set(environment.cookieToken, JSON.stringify(this.loginResponse.token));
           window.location.href = '/home';
         }
       },

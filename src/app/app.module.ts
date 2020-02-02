@@ -4,12 +4,12 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { MessageService } from 'primeng/api';
 import { UserService } from './services/user/user.service';
-import { BaseService } from './services/base/base.service';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -25,6 +25,7 @@ import { PaymentService } from './services/payment/payment.service';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -43,7 +44,6 @@ import { PaymentService } from './services/payment/payment.service';
   providers: [
     MessageService,
     UserService,
-    BaseService,
     IsLoggedInGuard,
     CookieService,
     ProductService,

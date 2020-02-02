@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from '../base/base.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../../models/reponse-models';
 import { User } from '../../models/data-models';
@@ -10,10 +9,9 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 
-export class UserService extends BaseService {
+export class UserService {
 
   constructor(private httpClient: HttpClient) {
-    super();
   }
 
   public login(user: User): Observable<LoginResponse> {

@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { User, Order, CartProductInfo, RazorPayOptions, RazorPayPrefill } from '../../models/data-models';
 import { ProductService } from '../../services/product/product.service';
 import { PaymentService } from '../../services/payment/payment.service';
+import { Router } from '@angular/router';
 declare var Razorpay: any;
 
 @Component({
@@ -17,24 +18,28 @@ export class CartComponent implements OnInit {
   cartProductInfoList: CartProductInfo[];
   orderPrice = 0;
   paymentProviderOrderId: string;
+  disablePlaceOrder: boolean;
 
-  constructor(private cookieService: CookieService, private productService: ProductService, private paymentService: PaymentService) {
+  constructor(private cookieService: CookieService, private productService: ProductService, private paymentService: PaymentService, private router: Router) {
     this.orderId = +this.cookieService.get('orderId');
     this.user = JSON.parse(this.cookieService.get('user'));
   }
 
   paymentResponseHandler(response) {
+    this.disablePlaceOrder = true;
     console.log(response);
     let orderInfo = { orderId: this.orderId, providerInfo: response }
     this.paymentService.closeTransaction(orderInfo).subscribe(() => {
       alert('Thank you for using Satish Market! \n Your order is on your way!');
+      this.cookieService.delete('orderId');
+      window.location.href = 'home';
     });
   }
 
   placeOrder() {
     let orderInfo = {
       orderId: this.orderId,
-      amount: this.orderPrice
+      amount: +this.orderPrice.toFixed(2)
     };
     this.paymentService.placeOrder(orderInfo).subscribe(paymentProviderResponse => {
       //this.paymentProviderOrderId = 'order_E9HHdjuQNb8a58';
@@ -63,8 +68,9 @@ export class CartComponent implements OnInit {
         let cartProductInfo = new CartProductInfo();
         cartProductInfo.count = orderProduct.count;
         cartProductInfo.name = orderProduct.product.name;
-        cartProductInfo.price = orderProduct.product.price * orderProduct.count;
+        cartProductInfo.price = +(orderProduct.product.price * orderProduct.count).toFixed(2);
         this.orderPrice += cartProductInfo.price;
+        this.orderPrice = +this.orderPrice.toFixed(2);
         this.cartProductInfoList.push(cartProductInfo);
       });
       console.log('Total Order Price: ' + this.orderPrice);

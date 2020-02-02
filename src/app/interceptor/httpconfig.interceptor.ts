@@ -18,8 +18,11 @@ import { CookieService } from 'ngx-cookie-service';
 export class HttpConfigInterceptor implements HttpInterceptor {
     constructor(private cookieService: CookieService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token: string = this.cookieService.get('auth-token');
-
+        let token;
+        if(this.cookieService.get('auth-token')){
+            token = JSON.parse(this.cookieService.get('auth-token'));
+        }
+        
         if (token) {
             request = request.clone({ headers: request.headers.set('Authorization', token) });
         }

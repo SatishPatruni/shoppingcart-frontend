@@ -7,15 +7,17 @@ import { AuthGuard } from "./gaurds/auth-guard.service";
 import { CartComponent } from "./components/cart/cart.component";
 
 const routes: Routes = [
-    { path: '', component: SigninComponent },
-    { path: 'signin', component: SigninComponent },
+    { path: '', component: SigninComponent, resolve: [IsLoggedInGuard] },
+    { path: 'signin', component: SigninComponent, resolve: [IsLoggedInGuard] },
     {
         path: 'home',
         component: ProductListComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'cart',
         component: CartComponent,
+        canActivate: [AuthGuard]
     }
 ];
 

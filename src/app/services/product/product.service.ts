@@ -9,7 +9,8 @@ import { ProductResponse, OrderResponse } from '../../models/reponse-models';
 })
 export class ProductService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   getProductList(): Observable<ProductResponse> {
     console.log('Calling endpoint: ' + environment.serverEndPoint + 'products');
